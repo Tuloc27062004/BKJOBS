@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 38 45% 97%;
+    --foreground: 196 36% 16%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 196 36% 16%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 196 36% 16%;
+
+    --primary: 171 74% 32%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 171 74% 28%;
+
+    --secondary: 32 92% 90%;
+    --secondary-foreground: 23 82% 32%;
+
+    --muted: 42 42% 92%;
+    --muted-foreground: 196 18% 38%;
+
+    --accent: 30 94% 62%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 30% 84%;
+    --input: 40 30% 84%;
+    --ring: 171 74% 32%;
+
+    --radius: 0.75rem;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(171 74% 32%) 0%, hsl(195 66% 27%) 55%, hsl(27 92% 60%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100% / 0.95) 0%, hsl(42 50% 96%) 100%);
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 196 36% 10%;
+    --foreground: 44 57% 96%;
+
+    --card: 196 33% 14%;
+    --card-foreground: 44 57% 96%;
+
+    --popover: 196 33% 14%;
+    --popover-foreground: 44 57% 96%;
+
+    --primary: 171 67% 42%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 171 67% 38%;
+
+    --secondary: 28 40% 22%;
+    --secondary-foreground: 44 57% 96%;
+
+    --muted: 196 28% 17%;
+    --muted-foreground: 38 20% 72%;
+
+    --accent: 27 92% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 196 25% 24%;
+    --input: 196 25% 24%;
+    --ring: 171 67% 42%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(171 64% 24%) 0%, hsl(195 58% 19%) 55%, hsl(27 75% 45%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(196 33% 14%) 0%, hsl(196 25% 17%) 100%);
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* 
+   * Fix layout shift when Radix modal opens (dialog, dropdown, etc.)
+   * Radix uses RemoveScroll which adds padding-right to compensate for scrollbar
+   * We disable this behavior by using scrollbar-gutter and forcing no compensation
+   */
+  html {
+    scrollbar-gutter: stable;
+    overflow-y: scroll; /* Always show scrollbar track */
+  }
+
+  /* 
+   * Override Radix RemoveScroll padding compensation
+   * RemoveScroll adds inline styles to body, html, and [data-radix-scroll-lock-wrapper]
+   */
+  body, 
+  html,
+  body[data-scroll-locked],
+  [data-radix-scroll-lock-wrapper] {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Also target the style attribute directly */
+  body[style*="padding-right"],
+  html[style*="padding-right"] {
+    padding-right: 0 !important;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at top left, hsl(var(--secondary) / 0.55), transparent 30%),
+      radial-gradient(circle at 85% 15%, hsl(var(--primary) / 0.14), transparent 28%),
+      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(44 45% 98%) 100%);
+    min-height: 100vh;
+  }
+
+  /* Reset select dropdown styles completely */
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #0f172a;
+  transition: background-color 9999s ease-out;
+}
+
+@layer utilities {
+  .bg-orbital {
+    background-image:
+      radial-gradient(circle at 10% 20%, hsl(var(--primary) / 0.12), transparent 22%),
+      radial-gradient(circle at 85% 15%, hsl(var(--accent) / 0.16), transparent 20%),
+      linear-gradient(180deg, hsl(var(--background)) 0%, hsl(42 55% 98%) 100%);
+  }
+
+  .animate-fade-up {
+    animation: fade-up 0.7s ease-out both;
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 10s ease-in-out infinite 1.2s;
+  }
+
+  .animation-delay-150 {
+    animation-delay: 0.15s;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 0.3s;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -18px, 0);
+  }
+}
