@@ -1,17 +1,17 @@
 # BKJOBS
 
-BKJOBS la frontend cho nen tang tim viec va tuyen dung, duoc xay dung voi `Next.js App Router`, `React`, `TypeScript` va `Tailwind CSS`. Du an hien uu tien kha nang demo giao dien nhanh, chay doc lap o local va co san mock data cho cac luong chinh nhu dang nhap, danh sach viec lam, dashboard nha tuyen dung va trang quan tri.
+BKJOBS is the frontend for a job search and recruitment platform, built with `Next.js App Router`, `React`, `TypeScript`, and `Tailwind CSS`. The project currently prioritizes fast UI demos, standalone local development, and ready-to-use mock data for core flows such as login, job listings, the employer dashboard, and the admin area.
 
-## Tong quan
+## Overview
 
-- App chinh nam trong thu muc `frontend/`
-- Kien truc route dung `app/`, phan giao dien tai su dung nam trong `src/screens/`
-- Ho tro 2 che do:
-  - `Demo mode`: mac dinh, khong can backend
-  - `API mode`: bat khi muon ket noi backend that qua bien moi truong
-- Su dung `AuthContext` va `JobsContext` de quan ly session, jobs, applications va state demo
+- The main app is located in the `frontend/` directory
+- The route architecture uses `app/`, while reusable UI screens are placed in `src/screens/`
+- Supports 2 modes:
+  - `Demo mode`: default, no backend required
+  - `API mode`: enabled when connecting to a real backend through environment variables
+- Uses `AuthContext` and `JobsContext` to manage sessions, jobs, applications, and demo state
 
-## Cong nghe su dung
+## Tech Stack
 
 - `Next.js 16`
 - `React 18`
@@ -22,36 +22,17 @@ BKJOBS la frontend cho nen tang tim viec va tuyen dung, duoc xay dung voi `Next.
 - `React Hook Form`
 - `Zod`
 
-## Cau truc thu muc
+## Current Features
 
-```text
-BKJOBS/
-|-- README.md
-|-- frontend/
-|   |-- app/                 # Next.js App Router
-|   |-- public/              # Tai nguyen tinh
-|   |-- src/
-|   |   |-- components/      # UI components va layout
-|   |   |-- contexts/        # AuthContext, JobsContext
-|   |   |-- lib/             # demo data, router adapter, API helpers
-|   |   |-- screens/         # Man hinh giao dien duoc route goi lai
-|   |   `-- hooks/
-|   |-- package.json
-|   `-- .env.example
-`-- BKJOBS_test/             # Ban sao tham chieu, khong phai entry chinh
-```
+- Homepage showcasing featured jobs
+- Job listing page with filters and search
+- Job detail page
+- Login, registration, and profile update flows
+- Employer dashboard for posting jobs and managing candidates
+- Admin area for dashboard, jobs, users, and lookup management
+- Additional info pages: `about`, `contact`, `policy`, `not-found`
 
-## Tinh nang hien co
-
-- Trang chu gioi thieu viec lam noi bat
-- Trang danh sach viec lam voi bo loc va tim kiem
-- Trang chi tiet viec lam
-- Dang nhap, dang ky va cap nhat thong tin ca nhan
-- Dashboard nha tuyen dung de dang tin va quan ly ung vien
-- Khu vuc admin de xem dashboard, jobs, users va lookups
-- Trang thong tin bo sung: `about`, `contact`, `policy`, `not-found`
-
-## Routes chinh
+## Main Routes
 
 ### Public
 
@@ -80,28 +61,28 @@ BKJOBS/
 - `/admin/users`
 - `/admin/lookups`
 
-## Che do chay
+## Runtime Modes
 
 ### 1. Demo mode
 
-Day la che do mac dinh hien tai.
+This is the current default mode.
 
-- Khong can backend
-- Doc du lieu demo tu `frontend/src/lib/demo.ts`
-- Phu hop de demo giao dien, flow va responsive
+- No backend required
+- Reads demo data from `frontend/src/lib/demo.ts`
+- Suitable for UI demos, flow walkthroughs, and responsive testing
 
 ### 2. API mode
 
-App se goi backend that khi dat:
+The app will call the real backend when the following values are set:
 
 ```env
 NEXT_PUBLIC_ENABLE_API=true
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
-Neu `NEXT_PUBLIC_ENABLE_API` khong bang `true`, project se tiep tuc chay bang mock/demo data.
+If `NEXT_PUBLIC_ENABLE_API` is not set to `true`, the project will continue running with mock/demo data.
 
-## Cai dat va chay local
+## Installation and Local Development
 
 ```bash
 cd frontend
@@ -109,32 +90,32 @@ npm install
 npm run dev
 ```
 
-Mac dinh app chay tai:
+By default, the app runs at:
 
 ```text
 http://localhost:3000
 ```
 
-## Bien moi truong
+## Environment Variables
 
-File mau:
+Example file:
 
 ```bash
 frontend/.env.example
 ```
 
-Gia tri de nghi khi can ket noi backend:
+Recommended values when connecting to a backend:
 
 ```env
 NEXT_PUBLIC_ENABLE_API=true
 NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 ```
 
-Neu ban chi can demo frontend, co the bo qua file `.env.local`.
+If you only need to demo the frontend, you can skip creating `.env.local`.
 
 ## Scripts
 
-Chay trong thu muc `frontend/`:
+Run inside the `frontend/` directory:
 
 ```bash
 npm run dev
@@ -143,48 +124,48 @@ npm run start
 npm run lint
 ```
 
-Y nghia:
+Meaning:
 
-- `dev`: chay moi truong phat trien
-- `build`: build production
-- `start`: chay ban build production
-- `lint`: kiem tra lint cho JS/TS/TSX
+- `dev`: run the development environment
+- `build`: create a production build
+- `start`: run the production build
+- `lint`: run lint checks for JS/TS/TSX
 
-## Cac file quan trong
+## Important Files
 
-- `frontend/app/layout.tsx`: metadata, layout goc va nap CSS global
-- `frontend/app/providers.tsx`: Query Client, auth, jobs, tooltip, toaster
-- `frontend/src/lib/demo.ts`: toan bo mock data va co DEMO_MODE
-- `frontend/src/lib/router.tsx`: adapter dieu huong de map logic cu sang Next.js
-- `frontend/src/lib/jobfinder.ts`: helper goi API cho jobs va applications
-- `frontend/src/contexts/AuthContext.tsx`: dang nhap, dang ky, refresh token, session
-- `frontend/src/contexts/JobsContext.tsx`: quan ly jobs, ung tuyen va fallback demo/local
-- `frontend/src/screens/`: cac man hinh UI duoc route trong `app/` su dung lai
-- `frontend/src/index.css`: theme, utility classes, animation va global styles
+- `frontend/app/layout.tsx`: metadata, root layout, and global CSS loading
+- `frontend/app/providers.tsx`: Query Client, auth, jobs, tooltip, and toaster providers
+- `frontend/src/lib/demo.ts`: all mock data and the `DEMO_MODE` flag
+- `frontend/src/lib/router.tsx`: navigation adapter that maps previous logic to Next.js
+- `frontend/src/lib/jobfinder.ts`: API helpers for jobs and applications
+- `frontend/src/contexts/AuthContext.tsx`: login, registration, refresh token, and session handling
+- `frontend/src/contexts/JobsContext.tsx`: manages jobs, applications, and demo/local fallback behavior
+- `frontend/src/screens/`: reusable UI screens consumed by routes in `app/`
+- `frontend/src/index.css`: theme, utility classes, animations, and global styles
 
-## Du lieu demo
+## Demo Data
 
-Project da co san cac tap du lieu de mo phong:
+The project already includes datasets to simulate:
 
-- user va admin demo
-- job forms demo
+- demo users and admin accounts
+- demo job forms
 - companies, currencies, work formats, provinces/districts/wards
-- status lookups va danh sach nguoi dung demo
+- status lookups and demo user lists
 
-Nguon du lieu nam tai:
+Data source:
 
 ```text
 frontend/src/lib/demo.ts
 ```
 
-## Ghi chu phat trien
+## Development Notes
 
-- App dang dung `Next.js App Router`, khong con la Vite app
-- Nhieu man hinh trong `src/screens/` duoc boc lai boi file route trong `app/`
-- `frontend/next.config.js` da duoc cau hinh toi uu CSS, image formats va production headers
-- Project hien phu hop nhat cho viec tiep tuc polish giao dien, responsive va noi backend that
+- The app is using `Next.js App Router`, no longer a Vite app
+- Many screens in `src/screens/` are wrapped by route files in `app/`
+- `frontend/next.config.js` is configured for CSS optimization, image formats, and production headers
+- The project is currently best suited for continued UI polishing, responsive improvements, and real backend integration
 
-## Luu y
+## Notes
 
-- Thu muc `BKJOBS_test/` hien co trong repo nhung khong phai noi can chay app chinh
-- README nay mo ta hien trang cua project tai `frontend/`
+- The `BKJOBS_test/` directory currently exists in the repo but is not where the main app should be run
+- This README describes the current state of the project in `frontend/`
